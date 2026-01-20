@@ -34,6 +34,7 @@ Fate questo esercizio in una repository su git e mandate il link al vostro accou
 class BabboNatale(arcade.Window):
     def __init__(self, larghezza, altezza, titolo):
         super().__init__(larghezza, altezza, titolo)
+        self.biscotti_alla_volta = 2
         self.contabiscotti = 0
         self.angolo = random.uniform(0, 360)
         self.babbo = None
@@ -142,7 +143,12 @@ class BabboNatale(arcade.Window):
             for cookie in collisioni:
                 cookie.remove_from_sprite_lists()
                 self.contabiscotti += 1
-            self.crea_cookie() # creo un altro biscotto
+
+            #Calcola quantità biscotti
+            self.biscotti_alla_volta = 1 + self.contabiscotti // 5
+
+            for i in range(self.biscotti_alla_volta):
+                self.crea_cookie()
             
             
     

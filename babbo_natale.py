@@ -41,7 +41,7 @@ class BabboNatale(arcade.Window):
         self.lista_background = arcade.SpriteList()
         self.lista_babbo = arcade.SpriteList()
         self.lista_cookie = arcade.SpriteList()
-        self.suono_munch = arcade.load_sound("./assets/munch.mp3")
+        #self.suono_munch = arcade.load_sound("./assets/munch.mp3")
         
         self.up_pressed = False
         self.down_pressed = False
@@ -123,7 +123,7 @@ class BabboNatale(arcade.Window):
         collisioni = arcade.check_for_collision_with_list(self.babbo, self.lista_cookie)
         
         if len(collisioni) > 0: # Vuol dire che il personaggio si è scontrato con qualcosa
-            arcade.play_sound(self.suono_munch)
+            #arcade.play_sound(self.suono_munch)
             for cookie in collisioni:
                 cookie.remove_from_sprite_lists()
             self.crea_cookie() # creo un altro biscotto

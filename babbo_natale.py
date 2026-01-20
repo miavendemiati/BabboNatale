@@ -35,6 +35,7 @@ Fate questo esercizio in una repository su git e mandate il link al vostro accou
 class BabboNatale(arcade.Window):
     def __init__(self, larghezza, altezza, titolo):
         super().__init__(larghezza, altezza, titolo)
+        self.contabiscotti = 0
         self.babbo = None
         self.cookie = None
         self.background = None
@@ -83,6 +84,13 @@ class BabboNatale(arcade.Window):
         self.lista_background.draw()
         self.lista_cookie.draw()
         self.lista_babbo.draw()
+        arcade.draw_text(
+            f"punteggio: {self.contabiscotti}",
+            20,
+            570,
+            arcade.color.WHITE,
+            15
+        )
     
     def on_update(self, delta_time):
         # Calcola movimento in base ai tasti premuti
@@ -126,7 +134,10 @@ class BabboNatale(arcade.Window):
             #arcade.play_sound(self.suono_munch)
             for cookie in collisioni:
                 cookie.remove_from_sprite_lists()
+                self.contabiscotti += 1
             self.crea_cookie() # creo un altro biscotto
+            
+            
     
     def on_key_press(self, tasto, modificatori):
         if tasto in (arcade.key.UP, arcade.key.W):

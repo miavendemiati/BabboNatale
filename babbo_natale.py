@@ -1,7 +1,6 @@
-
 import arcade
 import random
-
+import math
 
 
 """
@@ -36,6 +35,7 @@ class BabboNatale(arcade.Window):
     def __init__(self, larghezza, altezza, titolo):
         super().__init__(larghezza, altezza, titolo)
         self.contabiscotti = 0
+        self.angolo = random.uniform(0, 360)
         self.babbo = None
         self.cookie = None
         self.background = None
@@ -73,9 +73,12 @@ class BabboNatale(arcade.Window):
         
     
     def crea_cookie(self):
+        self.angolo = random.uniform(0, 360)
+        self.angolo_rad = math.radians(self.angolo)
+        self.distanza = random.randint(100, 350)
         self.cookie = arcade.Sprite("./assets/cookie.png")
-        self.cookie.center_x = random.randint(50, 550)
-        self.cookie.center_y = random.randint(50, 550)
+        self.cookie.center_x = self.babbo.center_x + math.cos(self.angolo_rad) * self.distanza
+        self.cookie.center_y = self.babbo.center_y + math.sin(self.angolo_rad) * self.distanza
         self.cookie.scale = 0.2
         self.lista_cookie.append(self.cookie)
     
@@ -126,6 +129,10 @@ class BabboNatale(arcade.Window):
             self.babbo.center_y = 0
         elif self.babbo.center_y > self.height:
             self.babbo.center_y = self.height
+        
+        for cookie in self.lista_cookie:
+            self.cookie.center_x = max(0, min(self.width, self.cookie.center_x))
+            self.cookie.center_y = max(0, min(self.height, self.cookie.center_y))
         
         # Gestione collisioni
         collisioni = arcade.check_for_collision_with_list(self.babbo, self.lista_cookie)
